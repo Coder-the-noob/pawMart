@@ -10,14 +10,15 @@ const Services = () => {
     AOS.init({
       duration: 700,
       easing: "ease-in-out",
-      once: true, 
+      once: true,
     });
 
-    fetch("/petServices.json")
+    fetch("http://localhost:3000/services")
       .then((res) => res.json())
       .then((data) => {
         setServices(data);
-        AOS.refresh(); });
+        AOS.refresh();
+      });
   }, []);
 
   return (
@@ -31,7 +32,7 @@ const Services = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {services.map((service) => (
-          <div key={service.serviceId} data-aos="zoom-in">
+          <div key={service._id} data-aos="zoom-in">
             <ServiceCard service={service} />
           </div>
         ))}

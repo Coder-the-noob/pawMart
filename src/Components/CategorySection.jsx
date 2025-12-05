@@ -41,7 +41,9 @@ const CategorySection = () => {
   return (
     <section className="py-10">
       <div className="text-center mb-8">
-        <h2 className="text-4xl font-bold" data-aos="fade-up">Shop by Category</h2>
+        <h2 className="text-4xl font-bold" data-aos="fade-up">
+          Shop by Category
+        </h2>
         <p className="text-gray-500 mt-3" data-aos="fade-up">
           Find everything your pet needs in one place.
         </p>
@@ -62,7 +64,6 @@ const CategorySection = () => {
             />
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10"></div>
-
 
             <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-xl font-semibold drop-shadow-lg">
               <span className="text-4xl mb-1">{cat.icon}</span>

@@ -11,7 +11,7 @@ const ProductDetailsPage = () => {
     fetch(`http://localhost:3000/services/products-details/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("Backend data:", data); 
+        console.log("Backend data:", data);
         setProduct(data);
       });
   }, [id]);

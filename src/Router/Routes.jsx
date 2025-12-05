@@ -9,6 +9,8 @@ import Register from "../Pages/Register";
 import PrivateRoute from "../Provider/PrivateRoute";
 import ForgotPassword from "../Pages/ForgotPassword";
 import AddService from "../Pages/AddService";
+import CategoryFilteredPage from "../Pages/CategoryFilteredPage";
+import ProductDetailsPage from "../Pages/ProductDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -22,8 +24,15 @@ const router = createBrowserRouter([
       { path: "auth/login", element: <Login /> },
       { path: "auth/register", element: <Register /> },
       { path: "auth/forgot-password", element: <ForgotPassword /> },
-      { path: "auth/forgot-password", element: <ForgotPassword /> },
       { path: "/add-service", element: <PrivateRoute><AddService /></PrivateRoute> },
+      {
+        path: "category-filtered-product/:categoryName",
+        element: <PrivateRoute><CategoryFilteredPage></CategoryFilteredPage></PrivateRoute>
+      },
+      {
+        path: "products-details/:id",
+        element: <PrivateRoute><ProductDetailsPage></ProductDetailsPage></PrivateRoute>
+      }
     ],
   },
 

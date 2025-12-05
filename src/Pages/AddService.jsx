@@ -5,23 +5,6 @@ import axios from 'axios';
 const AddService = () => {
 
     const { user } = useContext(AuthContext);
-    const IMGBB_API_KEY = import.meta.env.VITE_IMGBB_API_KEY;
-; 
-
-    // Upload Image to Imgbb
-    const uploadToImgbb = async (file) => {
-        const formData = new FormData();
-        formData.append("image", file);
-
-        const res = await fetch(
-            `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
-            { method: "POST", body: formData }
-        );
-
-        const data = await res.json();
-        return data.data.url; 
-    };
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,21 +15,18 @@ const AddService = () => {
         const price = parseInt(form.price.value) || 0;
         const location = form.location.value;
         const description = form.description.value;
-        const imageFile = form.image.files[0];
+        const imageUrl = form.image.value; 
         const date = form.date.value;
         const email = form.email.value;
 
         try {
-
-            const imageUrl = await uploadToImgbb(imageFile);
-
             const formData = {
                 productName,
                 category,
                 price,
                 location,
                 description,
-                image: imageUrl,
+                image: imageUrl, 
                 date,
                 email
             };
@@ -67,7 +47,6 @@ const AddService = () => {
             alert("Failed to add service!");
         }
     };
-
 
     return (
         <div className="max-w-xl mx-auto p-6 bg-base-200 rounded-xl shadow-lg mt-10">
@@ -97,9 +76,9 @@ const AddService = () => {
                     <select name="category" className="select select-bordered w-full" required>
                         <option value="">Select Category</option>
                         <option value="Pets">Pets</option>
-                        <option value="Food">Food</option>
+                        <option value="Pet-Food">Pet-Food</option>
                         <option value="Accessories">Accessories</option>
-                        <option value="Care Products">Care Products</option>
+                        <option value="Pet-Care">Pet-Care</option>
                     </select>
                 </div>
 
@@ -143,16 +122,16 @@ const AddService = () => {
                     ></textarea>
                 </div>
 
-                {/* File Upload */}
+                {/* Image URL Input */}
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Upload Image</span>
+                        <span className="label-text">Image URL (ImageBB link)</span>
                     </label>
                     <input
-                        type="file"
+                        type="url"
                         name="image"
-                        accept="image/*"
-                        className="file-input file-input-bordered w-full"
+                        placeholder="Paste ImageBB link here..."
+                        className="input input-bordered w-full"
                         required
                     />
                 </div>

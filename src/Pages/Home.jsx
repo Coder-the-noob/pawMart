@@ -4,12 +4,14 @@ import PopularCare from '../Components/PopularCare';
 import ExpertVets from '../Components/ExpertVets';
 import WinterCareTips from '../Components/WinterCareTips';
 import TestimonialsSection from '../Components/TestimonialsSection';
+import CategorySection from '../Components/CategorySection';
 
 const Home = () => {
     return (
         <div>
             <title>Home</title>
             <Slider></Slider>
+            <CategorySection></CategorySection>
             <PopularCare></PopularCare>
             <ExpertVets></ExpertVets>
             <WinterCareTips></WinterCareTips>
@@ -19,3 +21,4 @@ const Home = () => {
 };
 
 export default Home;
+<CategorySection></CategorySection>

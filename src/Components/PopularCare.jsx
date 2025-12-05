@@ -14,7 +14,7 @@ const PopularCare = () => {
       easing: "ease-in-out",
     });
 
-    fetch("/petServices.json")
+    fetch("http://localhost:3000/services")
       .then((res) => res.json())
       .then((data) => {
         setServices(data);
@@ -22,6 +22,8 @@ const PopularCare = () => {
       })
       .catch((err) => console.error("Failed to load services:", err));
   }, []);
+
+  console.log(services);
 
   return (
     <div className="container mx-auto mt-10 px-4">

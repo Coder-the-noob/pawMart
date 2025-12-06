@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import useAuth from "../Hooks/useAuth";
+import Swal from "sweetalert2";
 
-const OrderModal = ({ product, close }) => {
+const OrderModal = ({ product, close, refreshOrders }) => {
   const { user } = useAuth();
 
   const [form, setForm] = useState({
@@ -27,7 +28,13 @@ const OrderModal = ({ product, close }) => {
     })
       .then((res) => res.json())
       .then(() => {
-        alert("Order Successful!");
+        Swal.fire({
+          title: "Order Successful!",
+          text: "Your order has been submitted.",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        refreshOrders();
         close();
       });
   };
@@ -41,13 +48,9 @@ const OrderModal = ({ product, close }) => {
         <h2 className="text-2xl font-bold">Complete Your Order</h2>
 
         <input className="input input-bordered w-full" value={form.buyerName} readOnly />
-
         <input className="input input-bordered w-full" value={form.buyerEmail} readOnly />
-
         <input className="input input-bordered w-full" value={form.productId} readOnly />
-
         <input className="input input-bordered w-full" value={form.productName} readOnly />
-
         <input className="input input-bordered w-full" value={form.price} readOnly />
 
         <input

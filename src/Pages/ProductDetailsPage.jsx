@@ -10,6 +10,8 @@ const ProductDetailsPage = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState("All");
 
+  const refreshOrders = () => {};
+
   useEffect(() => {
     fetch(`http://localhost:3000/services/products-details/${id}`)
       .then((res) => res.json())
@@ -102,7 +104,11 @@ const ProductDetailsPage = () => {
       </div>
 
       {openModal && (
-        <OrderModal product={product} close={() => setOpenModal(false)} />
+        <OrderModal
+          product={product}
+          close={() => setOpenModal(false)}
+          refreshOrders={refreshOrders}
+        />
       )}
     </div>
   );

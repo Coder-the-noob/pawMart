@@ -6,7 +6,7 @@ const MyOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchOrders = () => {
+  const refreshOrders = () => {
     if (!user?.email) return;
 
     fetch(`http://localhost:3000/my-orders/${user.email}`)
@@ -18,14 +18,13 @@ const MyOrders = () => {
   };
 
   useEffect(() => {
-    fetchOrders();
+    refreshOrders();
   }, [user]);
 
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6 text-center">My Orders</h1>
 
-      {/* Loading Skeleton */}
       {loading ? (
         <div className="overflow-x-auto">
           <table className="table w-full">

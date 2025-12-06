@@ -5,6 +5,7 @@ import userIcon from "../assets/user.png";
 import "animate.css";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -19,7 +20,7 @@ const Navbar = () => {
       });
   };
   return (
-    <div className="navbar bg-base-100 shadow-sm mb-10">
+    <div className="navbar bg-base-100 dark:bg-gray-900 dark:text-gray-100 shadow-sm mb-10">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -47,7 +48,9 @@ const Navbar = () => {
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  isActive ? "text-violet-500 font-bold" : ""
+                  isActive
+                    ? "text-violet-500 font-bold dark:text-violet-300"
+                    : "text-gray-700 dark:text-gray-200"
                 }
               >
                 Home
@@ -58,7 +61,9 @@ const Navbar = () => {
               <NavLink
                 to="/services"
                 className={({ isActive }) =>
-                  isActive ? "text-violet-500 font-bold" : ""
+                  isActive
+                    ? "text-violet-500 font-bold dark:text-violet-300"
+                    : "text-gray-700 dark:text-gray-200"
                 }
               >
                 Services
@@ -69,7 +74,9 @@ const Navbar = () => {
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
-                  isActive ? "text-violet-500 font-bold" : ""
+                  isActive
+                    ? "text-violet-500 font-bold dark:text-violet-300"
+                    : "text-gray-700 dark:text-gray-200"
                 }
               >
                 My Profile
@@ -79,7 +86,9 @@ const Navbar = () => {
               <NavLink
                 to="/add-service"
                 className={({ isActive }) =>
-                  isActive ? "text-violet-500 font-bold" : ""
+                  isActive
+                    ? "text-violet-500 font-bold dark:text-violet-300"
+                    : "text-gray-700 dark:text-gray-200"
                 }
               >
                 Add Service
@@ -118,7 +127,7 @@ const Navbar = () => {
                 isActive ? "text-violet-500 font-bold" : ""
               }
             >
-              Pets & Supplies 
+              Pets & Supplies
             </NavLink>
           </li>
 
@@ -132,7 +141,7 @@ const Navbar = () => {
               My Profile
             </NavLink>
           </li>
-           <li>
+          <li>
             <NavLink
               to="/add-service"
               className={({ isActive }) =>
@@ -142,7 +151,7 @@ const Navbar = () => {
               Add Service
             </NavLink>
           </li>
-           <li>
+          <li>
             <NavLink
               to="/my-listings"
               className={({ isActive }) =>
@@ -152,7 +161,7 @@ const Navbar = () => {
               My Listings
             </NavLink>
           </li>
-           <li>
+          <li>
             <NavLink
               to="/my-orders"
               className={({ isActive }) =>
@@ -164,22 +173,30 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div className="navbar-end">
-        <div className="tooltip tooltip-bottom" data-tip={user?.displayName || "Guest"}>
-          <Link to="/profile">
-          <img
-            className="w-12 rounded-full space-x-3"
-            src={`${user && user.photoURL ? user.photoURL : userIcon}`}
-            alt=""
-          />
-        </Link>
+      <div className="navbar-end flex items-center gap-5">
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+
+          <div
+            className="tooltip tooltip-bottom"
+            data-tip={user?.displayName || "Guest"}
+          >
+            <Link to="/profile">
+              <img
+                className="w-12 rounded-full"
+                src={user?.photoURL || userIcon}
+                alt="Profile"
+              />
+            </Link>
+          </div>
         </div>
+
         {user ? (
-          <button onClick={handleLogOut} className="btn btn-primary px-10 ml-4">
+          <button onClick={handleLogOut} className="btn btn-primary px-10 ml-2">
             Logout
           </button>
         ) : (
-          <Link to="/auth/login" className="btn btn-primary px-10 ml-4">
+          <Link to="/auth/login" className="btn btn-primary px-10 ml-2">
             Login
           </Link>
         )}

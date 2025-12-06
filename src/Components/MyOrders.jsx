@@ -32,13 +32,27 @@ const MyOrders = () => {
             <tbody>
               {[1, 2, 3].map((i) => (
                 <tr key={i}>
-                  <td><div className="skeleton h-6 w-32"></div></td>
-                  <td><div className="skeleton h-6 w-20"></div></td>
-                  <td><div className="skeleton h-6 w-16"></div></td>
-                  <td><div className="skeleton h-6 w-12"></div></td>
-                  <td><div className="skeleton h-6 w-32"></div></td>
-                  <td><div className="skeleton h-6 w-24"></div></td>
-                  <td><div className="skeleton h-6 w-20"></div></td>
+                  <td>
+                    <div className="skeleton h-6 w-32"></div>
+                  </td>
+                  <td>
+                    <div className="skeleton h-6 w-20"></div>
+                  </td>
+                  <td>
+                    <div className="skeleton h-6 w-16"></div>
+                  </td>
+                  <td>
+                    <div className="skeleton h-6 w-12"></div>
+                  </td>
+                  <td>
+                    <div className="skeleton h-6 w-32"></div>
+                  </td>
+                  <td>
+                    <div className="skeleton h-6 w-24"></div>
+                  </td>
+                  <td>
+                    <div className="skeleton h-6 w-20"></div>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -68,7 +82,11 @@ const MyOrders = () => {
                   <td>{order.quantity}</td>
                   <td>{order.address}</td>
                   <td>{order.phone}</td>
-                  <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                  <td>
+                    {order.date
+                      ? new Date(order.date).toLocaleDateString()
+                      : "No Date Selected"}
+                  </td>
                 </tr>
               ))}
 

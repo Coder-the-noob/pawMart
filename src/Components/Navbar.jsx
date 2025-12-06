@@ -152,6 +152,16 @@ const Navbar = () => {
               My Listings
             </NavLink>
           </li>
+           <li>
+            <NavLink
+              to="/my-orders"
+              className={({ isActive }) =>
+                isActive ? "text-violet-500 font-bold" : ""
+              }
+            >
+              My Orders
+            </NavLink>
+          </li>
         </ul>
       </div>
       <div className="navbar-end">

@@ -12,6 +12,7 @@ import AddService from "../Pages/AddService";
 import CategoryFilteredPage from "../Pages/CategoryFilteredPage";
 import ProductDetailsPage from "../Pages/ProductDetailsPage";
 import MyListings from "../Pages/MyListings";
+import MyOrders from "../Components/MyOrders";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "my-listings",
         element: <PrivateRoute><MyListings /></PrivateRoute>
+      },
+      {
+        path: "my-orders",
+        element: <PrivateRoute><MyOrders /></PrivateRoute>
       },
       {
         path: "category-filtered-product/:categoryName",

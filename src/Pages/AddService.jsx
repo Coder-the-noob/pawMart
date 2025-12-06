@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const AddService = () => {
 
@@ -38,13 +39,13 @@ const AddService = () => {
                 formData
             );
 
-            alert("Service added successfully!");
+            toast.success("Service added successfully!");
             console.log("Backend Response:", response.data);
             form.reset();
 
         } catch (error) {
             console.error("Error adding service:", error);
-            alert("Failed to add service!");
+            toast.error("Failed to add service!");
         }
     };
 

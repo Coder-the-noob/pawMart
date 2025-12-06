@@ -1,119 +1,56 @@
-import React, { useContext } from "react";
-import petLogo from "../assets/company_logo.png.png";
+import React, { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import petLogo from "../assets/company_logo.png.png";
 import userIcon from "../assets/user.png";
-import "animate.css";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const handleLogOut = () => {
+
+  const handleLogout = () => {
     logOut()
-      .then(() => {
-        toast.success("User logged out successfully");
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Logout failed: " + error.message);
-      });
+      .then(() => toast.success("Logged out successfully"))
+      .catch((err) => toast.error(err.message));
   };
+
+   useEffect(() => {
+      AOS.init({
+        duration: 700,
+        easing: "ease-in-out",
+        once: true,
+      });
+    }, []);
+
   return (
     <div className="navbar bg-base-100 dark:bg-gray-900 dark:text-gray-100 shadow-sm mb-10">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
-            </svg>
-          </div>
-          <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-violet-500 font-bold dark:text-violet-300"
-                    : "text-gray-700 dark:text-gray-200"
-                }
-              >
-                Home
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink
-                to="/services"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-violet-500 font-bold dark:text-violet-300"
-                    : "text-gray-700 dark:text-gray-200"
-                }
-              >
-                Services
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink
-                to="/profile"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-violet-500 font-bold dark:text-violet-300"
-                    : "text-gray-700 dark:text-gray-200"
-                }
-              >
-                My Profile
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/add-service"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-violet-500 font-bold dark:text-violet-300"
-                    : "text-gray-700 dark:text-gray-200"
-                }
-              >
-                Add Service
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-        <div className="flex justify-center items-center gap-4">
-          <img
-            className="w-15 rounded-full animate__animated animate__bounceIn animate__delay-1s"
-            src={petLogo}
-            alt="WarmPaws Logo"
-          />
-          <span className="font-bold text-xl animate__animated animate__fadeInUp animate__delay-1s">
-            WarmPaws – Pet Care Center
-          </span>
-        </div>
+      <div className="navbar-start flex items-center gap-3">
+        <img
+          data-aos="fade-right"
+          src={petLogo}
+          alt="Logo"
+          className="w-14"
+        />
+        <span
+          data-aos="fade-down"
+          className="font-bold text-xl"
+        >
+          WarmPaws – Pet Care Center
+        </span>
       </div>
+
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 font-semibold">
+        <ul className="menu menu-horizontal px-1 font-semibold gap-4">
           <li>
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive ? "text-violet-500 font-bold" : ""
+                isActive
+                  ? "text-violet-500 font-bold dark:text-violet-300"
+                  : "text-gray-700 dark:text-gray-200"
               }
             >
               Home
@@ -124,81 +61,92 @@ const Navbar = () => {
             <NavLink
               to="/services"
               className={({ isActive }) =>
-                isActive ? "text-violet-500 font-bold" : ""
+                isActive
+                  ? "text-violet-500 font-bold dark:text-violet-300"
+                  : "text-gray-700 dark:text-gray-200"
               }
             >
               Pets & Supplies
             </NavLink>
           </li>
 
-          <li>
-            <NavLink
-              to="/profile"
-              className={({ isActive }) =>
-                isActive ? "text-violet-500 font-bold" : ""
-              }
-            >
-              My Profile
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/add-service"
-              className={({ isActive }) =>
-                isActive ? "text-violet-500 font-bold" : ""
-              }
-            >
-              Add Service
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/my-listings"
-              className={({ isActive }) =>
-                isActive ? "text-violet-500 font-bold" : ""
-              }
-            >
-              My Listings
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/my-orders"
-              className={({ isActive }) =>
-                isActive ? "text-violet-500 font-bold" : ""
-              }
-            >
-              My Orders
-            </NavLink>
-          </li>
+          {user && (
+            <>
+              <li>
+                <NavLink
+                  to="/add-service"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-violet-500 font-bold dark:text-violet-300"
+                      : "text-gray-700 dark:text-gray-200"
+                  }
+                >
+                  Add Listing
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/my-listings"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-violet-500 font-bold dark:text-violet-300"
+                      : "text-gray-700 dark:text-gray-200"
+                  }
+                >
+                  My Listings
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/my-orders"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-violet-500 font-bold dark:text-violet-300"
+                      : "text-gray-700 dark:text-gray-200"
+                  }
+                >
+                  My Orders
+                </NavLink>
+              </li>
+            </>
+          )}
         </ul>
       </div>
-      <div className="navbar-end flex items-center gap-5">
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
 
-          <div
-            className="tooltip tooltip-bottom"
-            data-tip={user?.displayName || "Guest"}
-          >
+      <div className="navbar-end flex items-center gap-5">
+        <ThemeToggle />
+
+        {!user && (
+          <>
+            <Link to="/auth/login" className="btn btn-primary btn-sm px-4">
+              Login
+            </Link>
+            <Link to="/auth/register" className="btn btn-outline btn-sm px-4">
+              Register
+            </Link>
+          </>
+        )}
+
+        {user && (
+          <>
             <Link to="/profile">
               <img
-                className="w-12 rounded-full"
+                data-aos="zoom-in"
                 src={user?.photoURL || userIcon}
                 alt="Profile"
+                className="w-12 h-12 rounded-full border"
               />
             </Link>
-          </div>
-        </div>
 
-        {user ? (
-          <button onClick={handleLogOut} className="btn btn-primary px-10 ml-2">
-            Logout
-          </button>
-        ) : (
-          <Link to="/auth/login" className="btn btn-primary px-10 ml-2">
-            Login
-          </Link>
+            <button
+              onClick={handleLogout}
+              className="btn btn-primary btn-sm px-6"
+            >
+              Logout
+            </button>
+          </>
         )}
       </div>
     </div>

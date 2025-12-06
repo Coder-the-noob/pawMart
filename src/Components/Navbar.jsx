@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import petLogo from "../assets/company_logo.png.png";
+import petLogo from "../assets/pawmart_logo.png.png";
 import userIcon from "../assets/user.png";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
@@ -38,7 +38,7 @@ const Navbar = () => {
           data-aos="fade-down"
           className="font-bold text-xl"
         >
-          WarmPaws – Pet Care Center
+          PawMart
         </span>
       </div>
 

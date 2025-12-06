@@ -61,7 +61,7 @@ const MyOrders = () => {
         <>
           <table className="table w-full border">
             <thead>
-              <tr>
+              <tr className="bg-gray-200 dark:bg-white-10">
                 <th>Product Name</th>
                 <th>Buyer Name</th>
                 <th>Price</th>

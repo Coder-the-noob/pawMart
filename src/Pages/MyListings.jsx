@@ -41,7 +41,7 @@ const MyListings = () => {
 
       <table className="table w-full border">
         <thead>
-          <tr>
+          <tr className="bg-gray-200 dark:bg-white-10">
             <th>Image</th>
             <th>Product Name</th>
             <th>Category</th>

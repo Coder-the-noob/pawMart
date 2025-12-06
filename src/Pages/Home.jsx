@@ -6,6 +6,7 @@ import WinterCareTips from '../Components/WinterCareTips';
 import TestimonialsSection from '../Components/TestimonialsSection';
 import CategorySection from '../Components/CategorySection';
 import RecentListing from '../Components/RecentListing';
+import WhyAdopt from '../Components/WhyAdopt';
 
 const Home = () => {
     return (
@@ -16,6 +17,7 @@ const Home = () => {
             <RecentListing></RecentListing>
             
             <WinterCareTips></WinterCareTips>
+            <WhyAdopt></WhyAdopt>
             <TestimonialsSection></TestimonialsSection>
         </div>
     );

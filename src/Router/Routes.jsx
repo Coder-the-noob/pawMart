@@ -11,6 +11,7 @@ import ForgotPassword from "../Pages/ForgotPassword";
 import AddService from "../Pages/AddService";
 import CategoryFilteredPage from "../Pages/CategoryFilteredPage";
 import ProductDetailsPage from "../Pages/ProductDetailsPage";
+import MyListings from "../Pages/MyListings";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       { path: "auth/register", element: <Register /> },
       { path: "auth/forgot-password", element: <ForgotPassword /> },
       { path: "/add-service", element: <PrivateRoute><AddService /></PrivateRoute> },
+      {
+        path: "my-listings",
+        element: <PrivateRoute><MyListings /></PrivateRoute>
+      },
       {
         path: "category-filtered-product/:categoryName",
         element: <PrivateRoute><CategoryFilteredPage></CategoryFilteredPage></PrivateRoute>

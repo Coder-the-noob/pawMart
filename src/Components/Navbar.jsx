@@ -142,6 +142,16 @@ const Navbar = () => {
               Add Service
             </NavLink>
           </li>
+           <li>
+            <NavLink
+              to="/my-listings"
+              className={({ isActive }) =>
+                isActive ? "text-violet-500 font-bold" : ""
+              }
+            >
+              My Listings
+            </NavLink>
+          </li>
         </ul>
       </div>
       <div className="navbar-end">

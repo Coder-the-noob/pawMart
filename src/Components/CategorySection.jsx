@@ -39,7 +39,7 @@ const CategorySection = () => {
   }, []);
 
   return (
-    <section className="py-10 bg-gray-100">
+    <section className="py-10">
       <div className="text-center mb-8">
         <h2 className="text-4xl font-bold" data-aos="fade-up">
           Shop by Category

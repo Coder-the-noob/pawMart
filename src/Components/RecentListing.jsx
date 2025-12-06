@@ -63,14 +63,17 @@ const RecentListing = () => {
         <input
           type="text"
           placeholder="Search by name, location, category..."
-          className="input input-bordered w-full md:w-1/2"
+          className="input input-bordered w-full md:w-1/2
+             dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+             dark:placeholder-gray-400"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
 
         {/* Category Dropdown */}
         <select
-          className="select select-bordered w-full md:w-1/4"
+          className="select select-bordered w-full md:w-1/4
+             dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >

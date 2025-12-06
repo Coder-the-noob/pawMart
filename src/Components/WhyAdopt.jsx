@@ -32,15 +32,17 @@ const WhyAdopt = () => {
   ];
 
   return (
-    <section className="py-16 bg-base-200 mt-12">
+    <section className="py-16 mt-12">
       <div className="container mx-auto px-4">
-        
         {/* Heading */}
         <div className="text-center mb-10" data-aos="fade-up">
-          <h2 className="text-4xl font-bold mb-3">Why Adopt from PawMart?</h2>
+           <h2
+        className="text-3xl md:text-4xl font-bold text-center mb-4"
+        data-aos="fade-up"
+      >Why Adopt from PawMart?</h2>
           <p className="text-gray-600 max-w-xl mx-auto">
-            Choosing adoption means saving a precious life and giving adorable pets
-            the chance they truly deserve.
+            Choosing adoption means saving a precious life and giving adorable
+            pets the chance they truly deserve.
           </p>
         </div>
 
@@ -59,7 +61,6 @@ const WhyAdopt = () => {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

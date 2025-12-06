@@ -14,7 +14,7 @@ const TestimonialsSection = () => {
       parentName: "Sarah Thompson",
       petName: "Bella",
       review:
-        "Amazing care! The team treated Bella like family. Her grooming and checkup were perfect. Highly recommend!",
+        "I chose this service because they truly care about pets. Bella received exceptional attention and the process was transparent and comforting. A perfect place for both adoption and pet care.",
       rating: 5,
       imgParent: "https://i.ibb.co/B5PgHCq8/woman-1.jpg",
       imgPet: "https://i.ibb.co/Gvbp59hr/cat-1.jpg",
@@ -24,7 +24,7 @@ const TestimonialsSection = () => {
       parentName: "James Carter",
       petName: "Milo",
       review:
-        "Very professional staff. Milo enjoyed his stay and came home happy and healthy. Great service!",
+        "They provide trustworthy, reliable care and make adoption stress-free. Milo felt safe the entire time. I can see why so many people choose them—highly recommended!",
       rating: 4,
       imgParent: "https://i.ibb.co/rGNpbDWt/man-1.jpg",
       imgPet: "https://i.ibb.co/WW5TpJyP/dog.jpg",
@@ -34,7 +34,7 @@ const TestimonialsSection = () => {
       parentName: "Emily Watson",
       petName: "Luna",
       review:
-        "They handled Luna's vaccination and grooming so well. Friendly staff and clean environment!",
+        "I chose their service because the staff genuinely understands pets’ needs. Luna's adoption process was smooth, and their care services are top-notch. Very professional and loving team!",
       rating: 5,
       imgParent: "https://i.ibb.co/TJx7T2n/woman-2.jpg",
       imgPet: "https://i.ibb.co/PXdtyXL/cat-2.jpg",
@@ -47,7 +47,7 @@ const TestimonialsSection = () => {
         className="text-3xl md:text-4xl font-bold text-center mb-4"
         data-aos="fade-up"
       >
-        Pet Parent Stories
+        Meet Our Happy Pet Parents
       </h2>
 
       <p

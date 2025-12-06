@@ -5,6 +5,7 @@ import ExpertVets from '../Components/ExpertVets';
 import WinterCareTips from '../Components/WinterCareTips';
 import TestimonialsSection from '../Components/TestimonialsSection';
 import CategorySection from '../Components/CategorySection';
+import RecentListing from '../Components/RecentListing';
 
 const Home = () => {
     return (
@@ -12,8 +13,8 @@ const Home = () => {
             <title>Home</title>
             <Slider></Slider>
             <CategorySection></CategorySection>
-            <PopularCare></PopularCare>
-            <ExpertVets></ExpertVets>
+            <RecentListing></RecentListing>
+            
             <WinterCareTips></WinterCareTips>
             <TestimonialsSection></TestimonialsSection>
         </div>

@@ -118,7 +118,7 @@ const Navbar = () => {
                 isActive ? "text-violet-500 font-bold" : ""
               }
             >
-              Services
+              Pets & Supplies 
             </NavLink>
           </li>
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UpdateModal from "../Components/UpdateModal";
 import useAuth from "../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const MyListings = () => {
   const { user } = useAuth();
@@ -13,7 +14,6 @@ const MyListings = () => {
     fetch(`http://localhost:3000/my-listings/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("Refreshed listings:", data);
         setListings(data);
       });
   };
@@ -23,16 +23,30 @@ const MyListings = () => {
   }, [user]);
 
   const handleDelete = (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete?");
-    if (!confirmDelete) return;
-
-    fetch(`http://localhost:3000/services/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then(() => {
-        refreshListings();
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This item will be permanently deleted.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/services/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then(() => {
+            Swal.fire("Deleted!", "Your listing has been removed.", "success");
+            refreshListings();
+          })
+          .catch(() => {
+            Swal.fire("Error!", "Could not delete the item.", "error");
+          });
+      }
+    });
   };
 
   return (

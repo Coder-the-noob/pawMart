@@ -11,7 +11,7 @@ const MyListings = () => {
   const refreshListings = () => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/my-listings/${user.email}`)
+    fetch(`https://scicbackend.vercel.app/my-listings/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setListings(data);
@@ -34,7 +34,7 @@ const MyListings = () => {
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/services/${id}`, {
+        fetch(`https://scicbackend.vercel.app/services/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

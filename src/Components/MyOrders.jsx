@@ -4,7 +4,6 @@ import { jsPDF } from "jspdf";
 import { applyPlugin } from "jspdf-autotable";
 import { FaFileDownload } from "react-icons/fa";
 
-
 applyPlugin(jsPDF);
 
 const MyOrders = () => {
@@ -15,7 +14,7 @@ const MyOrders = () => {
   const refreshOrders = () => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/my-orders/${user.email}`)
+    fetch(`https://scicbackend.vercel.app/my-orders/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);
@@ -29,7 +28,7 @@ const MyOrders = () => {
 
   const downloadPDF = () => {
     const doc = new jsPDF();
-    
+
     doc.setFontSize(18);
     doc.text("My Orders Report", 10, 15);
 

@@ -14,7 +14,7 @@ const Services = () => {
       once: true,
     });
 
-    fetch("http://localhost:3000/services")
+    fetch("https://scicbackend.vercel.app/services")
       .then((res) => res.json())
       .then((data) => {
         setServices(data);
@@ -36,10 +36,7 @@ const Services = () => {
 
   return (
     <div className="container mx-auto mt-10 px-4">
-      <h1
-        className="text-3xl text-center font-bold mb-6"
-        data-aos="fade-up"
-      >
+      <h1 className="text-3xl text-center font-bold mb-6" data-aos="fade-up">
         Pets and Supplies
       </h1>
 

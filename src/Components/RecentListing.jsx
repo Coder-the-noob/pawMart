@@ -19,7 +19,7 @@ const RecentListing = () => {
       easing: "ease-in-out",
     });
 
-    fetch("http://localhost:3000/recent-listings")
+    fetch("https://scicbackend.vercel.app/recent-listings")
       .then((res) => res.json())
       .then((data) => {
         setListings(data);

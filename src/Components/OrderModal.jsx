@@ -21,7 +21,7 @@ const OrderModal = ({ product, close, refreshOrders }) => {
   const handleOrder = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:3000/orders", {
+    fetch("https://scicbackend.vercel.app/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
@@ -47,11 +47,31 @@ const OrderModal = ({ product, close, refreshOrders }) => {
       >
         <h2 className="text-2xl font-bold">Complete Your Order</h2>
 
-        <input className="input input-bordered w-full" value={form.buyerName} readOnly />
-        <input className="input input-bordered w-full" value={form.buyerEmail} readOnly />
-        <input className="input input-bordered w-full" value={form.productId} readOnly />
-        <input className="input input-bordered w-full" value={form.productName} readOnly />
-        <input className="input input-bordered w-full" value={form.price} readOnly />
+        <input
+          className="input input-bordered w-full"
+          value={form.buyerName}
+          readOnly
+        />
+        <input
+          className="input input-bordered w-full"
+          value={form.buyerEmail}
+          readOnly
+        />
+        <input
+          className="input input-bordered w-full"
+          value={form.productId}
+          readOnly
+        />
+        <input
+          className="input input-bordered w-full"
+          value={form.productName}
+          readOnly
+        />
+        <input
+          className="input input-bordered w-full"
+          value={form.price}
+          readOnly
+        />
 
         <input
           type="text"
@@ -83,7 +103,11 @@ const OrderModal = ({ product, close, refreshOrders }) => {
         ></textarea>
 
         <button className="btn btn-primary w-full">Confirm Order</button>
-        <button type="button" onClick={close} className="btn btn-outline w-full">
+        <button
+          type="button"
+          onClick={close}
+          className="btn btn-outline w-full"
+        >
           Cancel
         </button>
       </form>

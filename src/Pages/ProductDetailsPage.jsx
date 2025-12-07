@@ -13,13 +13,13 @@ const ProductDetailsPage = () => {
   const refreshOrders = () => {};
 
   useEffect(() => {
-    fetch(`http://localhost:3000/services/products-details/${id}`)
+    fetch(`https://scicbackend.vercel.app/services/products-details/${id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, [id]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/services`)
+    fetch(`https://scicbackend.vercel.app/services`)
       .then((res) => res.json())
       .then((data) => setAllProducts(data));
   }, []);

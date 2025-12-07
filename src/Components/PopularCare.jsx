@@ -14,7 +14,7 @@ const PopularCare = () => {
       easing: "ease-in-out",
     });
 
-    fetch("http://localhost:3000/services")
+    fetch("https://scicbackend.vercel.app/services")
       .then((res) => res.json())
       .then((data) => {
         setServices(data);

@@ -3,17 +3,15 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const CategoryFilteredPage = () => {
-  
-const { categoryName } = useParams();
+  const { categoryName } = useParams();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/services/category/${categoryName}`)
+    fetch(`https://scicbackend.vercel.app/services/category/${categoryName}`)
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, [categoryName]);
-  
-  
+
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6">{categoryName}</h1>

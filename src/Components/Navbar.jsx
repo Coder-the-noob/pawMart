@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import petLogo from "../assets/pawmart_logo.png.png";
+import petLogo from "../assets/pawmart_logo.png";
 import userIcon from "../assets/user.png";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";

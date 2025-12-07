@@ -1,5 +1,5 @@
 import React from "react";
-import petLogo from "../assets/pawmart_logo.png.png";
+import petLogo from "../assets/pawmart_logo.png";
 
 // React Icons
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";

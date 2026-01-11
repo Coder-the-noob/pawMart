@@ -1,18 +1,14 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-html {
-  transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-.light {
-  @apply bg-white text-black;
-}
-
-.dark {
-  @apply bg-gray-900 text-gray-100;
-}
-
-html, body, .navbar {
+html,
+body,
+.navbar {
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* DaisyUI theme variables */
+body {
+  background-color: hsl(var(--b1));
+  color: hsl(var(--bc));
 }

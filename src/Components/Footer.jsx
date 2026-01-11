@@ -1,86 +1,201 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import petLogo from "../assets/pawmart_logo.png";
 
-// React Icons
-import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
+// Icons
+import { FaFacebookF, FaInstagram, FaYoutube, FaPhoneAlt } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
 
 const Footer = () => {
+  const year = new Date().getFullYear();
+
+  // Newsletter (simple + realistic)
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle"); // idle | success
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+
+    // No dummy backend call. Just UI feedback (safe).
+    setStatus("success");
+    setEmail("");
+    setTimeout(() => setStatus("idle"), 2200);
+  };
+
   return (
-    <footer className="bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-t border-gray-200 dark:border-gray-700 py-10 px-6 mt-5">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+    <footer className="bg-base-100 text-base-content border-t border-base-300 mt-10">
+      <div className="max-w-7xl mx-auto px-6 py-10">
+        {/* Top grid */}
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Brand */}
+          <div>
+            <img
+              src={petLogo}
+              className="w-16 h-16 object-contain"
+              alt="PawMart Logo"
+            />
+            <h2 className="text-2xl font-extrabold mt-3">PawMart</h2>
+            <p className="text-sm text-base-content/70 mt-2 leading-relaxed max-w-sm">
+              PawMart connects pet lovers for adoption, food, accessories, and
+              trusted pet care services.
+            </p>
+          </div>
 
-        {/* Brand Section */}
-        <div>
-          <img src={petLogo} className="w-20 h-20" alt="PawMart Logo" />
-          
-          <h2 className="text-2xl font-semibold mt-3 text-gray-900 dark:text-white">
-            PawMart
-          </h2>
+          {/* Links */}
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Useful Links</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/" className="hover:text-primary transition">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/browse" className="hover:text-primary transition">
+                  Browse Listings
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-primary transition">
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="hover:text-primary transition">
+                  Terms &amp; Conditions
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-          <p className="text-sm mt-2 max-w-xs opacity-80 leading-relaxed">
-            PawMart connects local pet owners and buyers for adoption and pet
-            care products. Your trusted platform for pet lovers.
-          </p>
+          {/* Contact */}
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Contact</h3>
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-center gap-3">
+                <FaPhoneAlt className="text-primary" />
+                <a
+                  href="tel:+8801234567890"
+                  className="hover:text-primary transition"
+                >
+                  +880 1234 567 890
+                </a>
+              </li>
 
-          <p className="text-sm mt-3 opacity-70">
-            © {new Date().getFullYear()} PawMart — All rights reserved.
-          </p>
-        </div>
+              <li className="flex items-center gap-3">
+                <MdEmail className="text-primary text-lg" />
+                <a
+                  href="mailto:support@pawmart.com"
+                  className="hover:text-primary transition"
+                >
+                  support@pawmart.com
+                </a>
+              </li>
+            </ul>
 
-        {/* Useful Links */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
-            Useful Links
-          </h3>
+            {/* Social */}
+            <div className="mt-5">
+              <h4 className="text-sm font-semibold text-base-content/70 mb-3">
+                Follow us
+              </h4>
+              <div className="flex gap-3">
+                <SocialIcon href="https://facebook.com" label="Facebook">
+                  <FaFacebookF />
+                </SocialIcon>
+                <SocialIcon href="https://twitter.com" label="Twitter">
+                  <FaXTwitter />
+                </SocialIcon>
+                <SocialIcon href="https://instagram.com" label="Instagram">
+                  <FaInstagram />
+                </SocialIcon>
+                <SocialIcon href="https://youtube.com" label="YouTube">
+                  <FaYoutube />
+                </SocialIcon>
+              </div>
+            </div>
+          </div>
 
-          <ul className="flex flex-col gap-2 text-sm">
-            <li><a href="/" className="hover:text-primary transition">Home</a></li>
-            <li><a href="/contact" className="hover:text-primary transition">Contact</a></li>
-            <li><a href="/terms" className="hover:text-primary transition">Terms</a></li>
-          </ul>
-        </div>
+          {/* Newsletter */}
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Newsletter</h3>
+            <p className="text-sm text-base-content/70 leading-relaxed">
+              Get new listings and pet care updates. No spam.
+            </p>
 
-        {/* Social Icons */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
-            Social
-          </h3>
+            <form onSubmit={handleSubscribe} className="mt-4 space-y-3">
+              <label className="form-control">
+                <span className="label-text text-sm font-semibold text-base-content/70">
+                  Email
+                </span>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="input input-bordered rounded-xl w-full"
+                  placeholder="your@email.com"
+                  required
+                />
+              </label>
 
-          <div className="flex gap-4 text-xl">
+              <button type="submit" className="btn btn-primary rounded-xl w-full">
+                Subscribe
+              </button>
 
-            <IconCircle>
-              <FaFacebookF />
-            </IconCircle>
-
-            <IconCircle>
-              <FaXTwitter /> 
-            </IconCircle>
-
-            <IconCircle>
-              <FaInstagram />
-            </IconCircle>
-
-            <IconCircle>
-              <FaYoutube />
-            </IconCircle>
-
+              {status === "success" && (
+                <div className="alert alert-success rounded-2xl py-3">
+                  <span className="text-sm">
+                    Subscribed successfully. Thank you!
+                  </span>
+                </div>
+              )}
+            </form>
           </div>
         </div>
 
+        {/* Bottom bar */}
+        <div className="mt-10 pt-6 border-t border-base-300 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-sm text-base-content/60">
+            © {year} PawMart. All rights reserved.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-3 text-sm">
+            <Link to="/terms" className="text-base-content/70 hover:text-primary transition">
+              Terms
+            </Link>
+            <span className="text-base-content/40">•</span>
+            <Link to="/privacy" className="text-base-content/70 hover:text-primary transition">
+              Privacy
+            </Link>
+            <span className="text-base-content/40">•</span>
+            <Link to="/contact" className="text-base-content/70 hover:text-primary transition">
+              Support
+            </Link>
+          </div>
+        </div>
       </div>
     </footer>
   );
 };
 
-const IconCircle = ({ children }) => (
-  <div
-    className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 shadow-sm 
-               text-gray-700 dark:text-gray-300 hover:bg-primary 
-               hover:text-white transition-colors cursor-pointer"
+const SocialIcon = ({ href, children, label }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={label}
+    className="
+      p-3 rounded-full bg-base-200
+      text-base-content
+      hover:bg-primary hover:text-white
+      transition-all duration-200
+      shadow-sm hover:shadow-md
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40
+    "
   >
     {children}
-  </div>
+  </a>
 );
 
 export default Footer;

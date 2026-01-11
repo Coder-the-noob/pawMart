@@ -3,154 +3,199 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
+import { FcGoogle } from "react-icons/fc";
+import petLogo from "../assets/pawmart_logo.png";
 
 const Login = () => {
-  const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-
   const { logIn, googleLogin } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    // console.log({email, password});
-    // handle login logic here
-    logIn(email, password)
-      .then(() => {
-        // console.log(loggedUser);
-        toast.success("User logged in successfully");
-        form.reset();
-        navigate(`${location.state || "/"}`);
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Login failed: " + error.message);
-        setError(error.code);
-      });
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [demoAvatar, setDemoAvatar] = useState(null);
+
+  const DEMO_USER = {
+    email: "demo@pawmart.com",
+    password: "Demo@1234",
+    avatar: "https://i.ibb.co.com/wZPMz3HN/christina-wocintechchat-com-0-Zx1b-Dv5-BNY-unsplash.jpg",
+    label: "Demo User",
   };
 
-  const handleGoogleLogin = () => {
-    googleLogin()
-      .then(() => {
-        toast.success("Logged in with Google successfully");
-        navigate(`${location.state || "/"}`);
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Google login failed: " + error.message);
-        setError(error.code);
-      });
+  const DEMO_ADMIN = {
+    email: "admin@pawmart.com",
+    password: "Admin@1234",
+    avatar: "https://i.ibb.co.com/7xF2g4J6/darshan-patel-QJEVpydul-Gs-unsplash.jpg",
+    label: "Demo Admin",
+  };
+
+  const goNext = () => navigate(`${location.state || "/"}`);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    if (!form.email || !form.password) {
+      toast.error("Email and password are required");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await logIn(form.email, form.password);
+      toast.success("Logged in successfully");
+      goNext();
+    } catch (error) {
+      toast.error("Login failed: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    try {
+      await googleLogin();
+      toast.success("Logged in with Google successfully");
+      goNext();
+    } catch (error) {
+      toast.error("Google login failed: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 🔹 Autofill demo + avatar
+  const fillDemo = (demo) => {
+    setForm({
+      email: demo.email,
+      password: demo.password,
+    });
+    setDemoAvatar({
+      src: demo.avatar,
+      label: demo.label,
+    });
+    toast.success(`${demo.label} credentials loaded`);
   };
 
   return (
-    <div className="flex mx-auto min-h-screen justify-center items-center">
-      <form
-        className="card-body flex justify-center items-center"
-        onSubmit={handleLogin}
-      >
-        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-          <h1 className="text-xl font-bold text-center mb-4">
-            Login Your Account
-          </h1>
+    <div className="min-h-screen bg-base-200 flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-md">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <img src={petLogo} alt="PawMart" className="mx-auto w-16 h-16" />
+          <h1 className="text-3xl font-extrabold mt-3">Welcome back</h1>
+          <p className="text-base-content/70 mt-1">
+            Login to continue to PawMart
+          </p>
+        </div>
 
-          <label className="label">Email</label>
-          <input
-            type="email"
-            name="email"
-            className="input"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-
-          <label className="label">Password</label>
-          <div className="relative w-full">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              className="input pr-10 w-full"
-              placeholder="Password"
-              required
-            />
+        {/* Card */}
+        <div className="bg-base-100 border border-base-300 rounded-2xl shadow-xl p-6">
+          {/* Demo buttons */}
+          <div className="grid grid-cols-2 gap-3 mb-4">
             <button
               type="button"
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
-              onClick={() => setShowPassword(!showPassword)}
+              className="btn btn-outline rounded-xl"
+              onClick={() => fillDemo(DEMO_USER)}
             >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
+              Demo User
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline rounded-xl"
+              onClick={() => fillDemo(DEMO_ADMIN)}
+            >
+              Demo Admin
             </button>
           </div>
 
-          <div className="mt-2">
-            <Link
-              to="/auth/forgot-password"
-              className="link link-hover font-semibold"
-              state={{ email: "" }}
-            >
-              Forget Password?
-            </Link>
-          </div>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {/* Avatar Preview */}
+          {demoAvatar && (
+            <div className="flex items-center gap-3 mb-4 p-3 rounded-xl bg-base-200 border border-base-300">
+              <img
+                src={demoAvatar.src}
+                alt="demo avatar"
+                className="w-12 h-12 rounded-full object-cover"
+              />
+              <div>
+                <p className="font-semibold">{demoAvatar.label}</p>
+                <p className="text-xs text-base-content/60">
+                  Demo account selected
+                </p>
+              </div>
+            </div>
+          )}
 
-          <button type="submit" className="btn btn-neutral mt-4">
-            Login
-          </button>
+          {/* Form */}
+          <form onSubmit={handleLogin} className="space-y-4">
+            {/* Email */}
+            <input
+              type="email"
+              placeholder="Email"
+              className="input input-bordered rounded-xl w-full"
+              value={form.email}
+              onChange={(e) =>
+                setForm({ ...form, email: e.target.value })
+              }
+            />
 
-          {/* Google Button */}
-          <button
-            type="button"
-            onClick={handleGoogleLogin}
-            className="btn bg-white text-black border-[#e5e5e5] mt-3"
-          >
-            <svg
-              aria-label="Google logo"
-              width="16"
-              height="16"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-            >
-              <g>
-                <path d="m0 0H512V512H0" fill="#fff"></path>
-                <path
-                  fill="#34a853"
-                  d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
-                ></path>
-                <path
-                  fill="#4285f4"
-                  d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
-                ></path>
-                <path
-                  fill="#fbbc02"
-                  d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
-                ></path>
-                <path
-                  fill="#ea4335"
-                  d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
-                ></path>
-              </g>
-            </svg>
-            Login with Google
-          </button>
+            {/* Password */}
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                className="input input-bordered rounded-xl w-full pr-11"
+                value={form.password}
+                onChange={(e) =>
+                  setForm({ ...form, password: e.target.value })
+                }
+              />
+              <button
+                type="button"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-base-content/60"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
 
-          <p className="mt-4 font-semibold text-center">
-            Dont'have an account?{" "}
-            <Link
-              to="/auth/register"
-              className="link link-hover font-semibold text-red-500"
+            <button
+              type="submit"
+              className="btn btn-primary rounded-xl w-full"
+              disabled={loading}
             >
-              Register
-            </Link>
-          </p>
-        </fieldset>
-      </form>
+              {loading ? "Logging in..." : "Login"}
+            </button>
+
+            <div className="divider text-sm">or</div>
+
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              className="btn btn-outline rounded-xl w-full"
+            >
+              <FcGoogle className="text-xl" />
+              Continue with Google
+            </button>
+
+            <p className="text-center text-sm font-semibold mt-3">
+              Don&apos;t have an account?{" "}
+              <Link to="/auth/register" className="text-primary link">
+                Register
+              </Link>
+            </p>
+          </form>
+        </div>
+
+        <p className="text-xs text-center text-base-content/60 mt-4">
+          PawMart • Demo powered • Secure authentication
+        </p>
+      </div>
     </div>
   );
 };

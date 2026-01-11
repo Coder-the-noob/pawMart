@@ -13,6 +13,12 @@ import CategoryFilteredPage from "../Pages/CategoryFilteredPage";
 import ProductDetailsPage from "../Pages/ProductDetailsPage";
 import MyListings from "../Pages/MyListings";
 import MyOrders from "../Components/MyOrders";
+import Browse from "../Pages/Browse";
+import FAQ from "../Pages/FAQ";
+import Blog from "../Pages/Blog";
+import Categories from "../Pages/Categories";
+import Contact from "../Pages/Contact";
+import Wishlist from "../Pages/WishList";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +48,30 @@ const router = createBrowserRouter([
       {
         path: "products-details/:id",
         element: <PrivateRoute><ProductDetailsPage></ProductDetailsPage></PrivateRoute>
+      },
+      {
+        path: "browse",
+        element: <Browse></Browse>
+      },
+      {
+        path: "categories",
+        element: <Categories></Categories>
+      },
+      {
+        path: "blog",
+        element: <PrivateRoute><Blog /></PrivateRoute>
+      },
+      {
+        path: "faq",
+        element: <FAQ />
+      },
+      {
+        path: "contact",
+        element: <Contact></Contact>
+      },
+      {
+        path: "wishlist",
+        element: <PrivateRoute><Wishlist /></PrivateRoute>
       }
     ],
   },

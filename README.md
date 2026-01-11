@@ -1,16 +1,47 @@
-# React + Vite
+# 🐾 PawMart – Pet Adoption & Supplies Marketplace
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+PawMart is a user-friendly platform that connects pet owners, buyers, and animal lovers.  
+Users can adopt pets, purchase supplies, and manage their listings in one place.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Website  
+👉 https://earnest-biscuit-1c43d7.netlify.app/
+👉 Backend API: https://scicbackend-omf2dfjxg-coder-the-noobs-projects.vercel.app/
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- 🐶 **Browse Pets & Supplies** — Explore a variety of pets and pet-related products.
+- 🔍 **Smart Search System** — Quickly find items using powerful search filtering.
+- 👤 **User Authentication** — Secure login & registration using Firebase/Auth system.
+- 📝 **User Dashboard** — Manage your own listings, orders, and updates in real time.
+- 💳 **Order Management** — View your personal orders with PDF report download.
+- 🖼️ **Responsive Design** — Fully optimized for mobile, tablet, and desktop.
+- 📦 **Add / Edit / Delete Listings** — Complete CRUD system for managing items.
+- 🧾 **Downloadable Report** — Users can export their order history as a PDF.
+- 🌙 **Dark Mode Support** — Modern UI with optional theme switching.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Technologies Used
+
+### **Frontend**
+- React.js  
+- React Router  
+- Tailwind CSS / DaisyUI  
+- AOS Animation  
+- jsPDF (PDF generation)
+
+### **Backend**
+- Node.js  
+- Express.js  
+- MongoDB  
+- Vercel Serverless Deployment
+
+---
+
+
+
+

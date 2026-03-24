@@ -6,7 +6,7 @@ Users can adopt pets, purchase supplies, and manage their listings in one place.
 ---
 
 ## 🌐 Live Website  
-👉 https://earnest-biscuit-1c43d7.netlify.app/
+👉 https://leafy-meerkat-e3931e.netlify.app/
 👉 Backend API: https://scicbackend-omf2dfjxg-coder-the-noobs-projects.vercel.app/
 
 ---

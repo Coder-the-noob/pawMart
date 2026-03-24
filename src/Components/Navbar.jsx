@@ -5,9 +5,12 @@ import { AuthContext } from "../Provider/AuthProvider";
 import ThemeToggle from "./ThemeToggle";
 import petLogo from "../assets/pawmart_logo.png";
 import userIcon from "../assets/user.png";
+import useRole from "../Hooks/useRole";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const { role, roleLoading } = useRole();
+
   const [loggingOut, setLoggingOut] = useState(false);
 
   // dropdown open states (click-to-open)
@@ -30,14 +33,9 @@ const Navbar = () => {
   // close dropdown when clicking outside
   useEffect(() => {
     const handler = (e) => {
-      if (
-        exploreRef.current &&
-        !exploreRef.current.contains(e.target) &&
-        browseRef.current &&
-        !browseRef.current.contains(e.target)
-      ) {
-        closeAll();
-      }
+      const insideExplore = exploreRef.current?.contains(e.target);
+      const insideBrowse = browseRef.current?.contains(e.target);
+      if (!insideExplore && !insideBrowse) closeAll();
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -66,12 +64,14 @@ const Navbar = () => {
     }
   };
 
+  const isAdmin = user && !roleLoading && role === "admin";
+
   return (
-    <div className="sticky top-0 z-50 bg-base-100 border-b border-base-200">
+    <div className="sticky top-0 z-50 bg-base-100/90 backdrop-blur border-b border-base-200">
       <div className="navbar max-w-7xl mx-auto px-4">
         {/* LEFT */}
         <div className="navbar-start">
-          {/* Mobile menu (simple links) */}
+          {/* Mobile menu */}
           <div className="dropdown lg:hidden">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
               <svg
@@ -92,35 +92,35 @@ const Navbar = () => {
 
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-60"
+              className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-64 border border-base-200"
             >
               <li>
-                <NavLink to="/" className={navLinkClass}>
+                <NavLink to="/" className={navLinkClass} onClick={closeAll}>
                   Home
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/browse" className={navLinkClass}>
+                <NavLink to="/browse" className={navLinkClass} onClick={closeAll}>
                   Browse
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/categories" className={navLinkClass}>
+                <NavLink to="/categories" className={navLinkClass} onClick={closeAll}>
                   Categories
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/blog" className={navLinkClass}>
+                <NavLink to="/blog" className={navLinkClass} onClick={closeAll}>
                   Care Tips
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/faq" className={navLinkClass}>
+                <NavLink to="/faq" className={navLinkClass} onClick={closeAll}>
                   FAQ
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/contact" className={navLinkClass}>
+                <NavLink to="/contact" className={navLinkClass} onClick={closeAll}>
                   Contact
                 </NavLink>
               </li>
@@ -128,17 +128,30 @@ const Navbar = () => {
               {user && (
                 <>
                   <li className="divider my-1"></li>
+
                   <li>
-                    <NavLink to="/add-service">Add Listing</NavLink>
+                    <NavLink to="/dashboard" onClick={closeAll}>
+                      Dashboard
+                    </NavLink>
+                  </li>
+
+                  {isAdmin && (
+                    <li>
+                      <NavLink to="/dashboard/admin/home" onClick={closeAll}>
+                        Admin Panel
+                      </NavLink>
+                    </li>
+                  )}
+
+                  <li>
+                    <NavLink to="/my-orders" onClick={closeAll}>
+                      My Orders
+                    </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/my-listings">My Listings</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/my-orders">My Orders</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/wishlist">Wishlist</NavLink>
+                    <NavLink to="/wishlist" onClick={closeAll}>
+                      Wishlist
+                    </NavLink>
                   </li>
                 </>
               )}
@@ -147,18 +160,12 @@ const Navbar = () => {
                 <>
                   <li className="divider my-1"></li>
                   <li>
-                    <Link
-                      to="/auth/login"
-                      className="btn btn-primary btn-sm w-full"
-                    >
+                    <Link to="/auth/login" className="btn btn-primary btn-sm w-full">
                       Login
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      to="/auth/register"
-                      className="btn btn-outline btn-sm w-full"
-                    >
+                    <Link to="/auth/register" className="btn btn-outline btn-sm w-full">
                       Register
                     </Link>
                   </li>
@@ -170,11 +177,11 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <img src={petLogo} alt="PawMart logo" className="w-10" />
-            <span className="text-xl font-bold">PawMart</span>
+            <span className="text-xl font-extrabold tracking-tight">PawMart</span>
           </Link>
         </div>
 
-        {/* CENTER (DESKTOP) */}
+        {/* CENTER (Desktop) */}
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal gap-2 font-medium">
             <li>
@@ -183,7 +190,7 @@ const Navbar = () => {
               </NavLink>
             </li>
 
-            {/* Browse dropdown (click-to-open, optional) */}
+            {/* Browse dropdown */}
             <li ref={browseRef} className="relative">
               <button
                 type="button"
@@ -195,9 +202,7 @@ const Navbar = () => {
               >
                 Browse
                 <svg
-                  className={`w-4 h-4 transition ${
-                    browseOpen ? "rotate-180" : ""
-                  }`}
+                  className={`w-4 h-4 transition ${browseOpen ? "rotate-180" : ""}`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -235,7 +240,7 @@ const Navbar = () => {
               )}
             </li>
 
-            {/* Explore dropdown (click-to-open, stable) */}
+            {/* Explore dropdown */}
             <li ref={exploreRef} className="relative">
               <button
                 type="button"
@@ -247,9 +252,7 @@ const Navbar = () => {
               >
                 Explore
                 <svg
-                  className={`w-4 h-4 transition ${
-                    exploreOpen ? "rotate-180" : ""
-                  }`}
+                  className={`w-4 h-4 transition ${exploreOpen ? "rotate-180" : ""}`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -287,19 +290,23 @@ const Navbar = () => {
               )}
             </li>
 
-            {/* Logged-in only links (5+ routes requirement) */}
+            {/* Logged in: Dashboard */}
             {user && (
               <>
-                {/* <li>
-                  <NavLink to="/add-service" className={navLinkClass}>
-                    Add Listing
+                <li>
+                  <NavLink to="/dashboard" className={navLinkClass}>
+                    Dashboard
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to="/my-listings" className={navLinkClass}>
-                    My Listings
-                  </NavLink>
-                </li> */}
+
+                {isAdmin && (
+                  <li>
+                    <NavLink to="/dashboard/admin/home" className={navLinkClass}>
+                      Admin Panel
+                    </NavLink>
+                  </li>
+                )}
+
                 <li>
                   <NavLink to="/my-orders" className={navLinkClass}>
                     My Orders
@@ -321,10 +328,10 @@ const Navbar = () => {
 
           {!user ? (
             <div className="hidden lg:flex gap-2">
-              <Link to="/auth/login" className="btn btn-primary btn-sm">
+              <Link to="/auth/login" className="btn btn-primary btn-sm rounded-xl">
                 Login
               </Link>
-              <Link to="/auth/register" className="btn btn-outline btn-sm">
+              <Link to="/auth/register" className="btn btn-outline btn-sm rounded-xl">
                 Register
               </Link>
             </div>
@@ -338,34 +345,46 @@ const Navbar = () => {
 
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-56"
+                className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-56 border border-base-200"
               >
                 <li className="text-xs opacity-70 px-2">
                   Signed in as {user?.displayName || "User"}
                 </li>
+
                 <div className="divider my-1" />
+
+                <li>
+                  <NavLink to="/dashboard" onClick={closeAll}>
+                    Dashboard
+                  </NavLink>
+                </li>
+
+                {isAdmin && (
+                  <li>
+                    <NavLink to="/dashboard/admin/home" onClick={closeAll}>
+                      Admin Panel
+                    </NavLink>
+                  </li>
+                )}
+
                 <li>
                   <NavLink to="/profile" onClick={closeAll}>
                     My Profile
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to="/my-listings" onClick={closeAll}>
-                    My Listings
-                  </NavLink>
-                </li>
+
                 <li>
                   <NavLink to="/my-orders" onClick={closeAll}>
                     My Orders
                   </NavLink>
                 </li>
+
                 <div className="divider my-1" />
+
                 <li>
                   <button
                     onClick={handleLogout}
-                    className={`text-error ${
-                      loggingOut ? "opacity-60 pointer-events-none" : ""
-                    }`}
+                    className={`text-error ${loggingOut ? "opacity-60 pointer-events-none" : ""}`}
                   >
                     {loggingOut ? "Logging out..." : "Logout"}
                   </button>

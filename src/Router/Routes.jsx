@@ -19,6 +19,13 @@ import Blog from "../Pages/Blog";
 import Categories from "../Pages/Categories";
 import Contact from "../Pages/Contact";
 import Wishlist from "../Pages/WishList";
+import DashboardLayout from "../Layouts/DashboardLayout";
+import AdminRoute from "../Provider/AdminRoute";
+import AdminDashboardHome from "../Pages/Dashboard/AdminDashboardHome";
+import AdminOverview from "../Pages/Dashboard/AdminOverview";
+import ManageUsers from "../Pages/Dashboard/ManageUsers";
+import ManageListings from "../Pages/Dashboard/ManageListings";
+import DashboardHome from "../Pages/Dashboard/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +80,41 @@ const router = createBrowserRouter([
         path: "wishlist",
         element: <PrivateRoute><Wishlist /></PrivateRoute>
       }
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (<PrivateRoute>
+      <DashboardLayout />
+    </PrivateRoute>),
+    children: [
+      {index: true, element: <DashboardHome />},
+      {
+        path: "admin/home",
+        element: (<AdminRoute>
+          <AdminDashboardHome />
+          </AdminRoute>),
+      },
+
+      {
+        path: "admin/overview",
+        element: (<AdminRoute>
+          <AdminOverview></AdminOverview>
+          </AdminRoute>),
+      },
+      {
+        path: "admin/users",
+        element: (<AdminRoute>
+          <ManageUsers></ManageUsers>
+          </AdminRoute>),
+      },
+
+      {
+        path: "admin/listings",
+        element: (<AdminRoute>
+          <ManageListings></ManageListings>
+          </AdminRoute>),
+      },
     ],
   },
 

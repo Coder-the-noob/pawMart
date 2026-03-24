@@ -8,9 +8,9 @@ import { initializeApp } from "firebase/app";
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APIKEY,
   authDomain:import.meta.env.VITE_AUTHDOMAIN ,
-  projectId:import.meta.env.VITE_PROJECTED ,
+  projectId:import.meta.env.VITE_PROJECTEDID ,
   storageBucket:import.meta.env.VITE_STORAGEBUCKET ,
-  messagingSenderId:import.meta.env.VITE_MESSAGINGSENDERED ,
+  messagingSenderId:import.meta.env.VITE_MESSAGINGSENDERID ,
   appId: import.meta.env.VITE_APPID
 };
 

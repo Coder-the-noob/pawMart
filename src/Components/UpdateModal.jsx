@@ -4,6 +4,7 @@ const UpdateModal = ({ item, close, refresh }) => {
   const [form, setForm] = useState({ ...item });
   const [loading, setLoading] = useState(false);
 
+
   useEffect(() => {
     setForm({ ...item });
   }, [item]);
